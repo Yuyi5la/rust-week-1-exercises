@@ -123,7 +123,7 @@ pub fn calculate_sats(btc: f64) -> u64 {
 pub fn generate_address(prefix: &str) -> String {
     // TODO: Build a random suffix of (32 - prefix.len()) chars from [a-z0-9]
     // TODO: Concatenate prefix + suffix and return
-     todo!()
+    todo!()
 }
 
 /// Validate a Bitcoin block height. Returns (is_valid, message).
