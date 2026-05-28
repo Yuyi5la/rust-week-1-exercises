@@ -62,7 +62,6 @@ pub fn is_in_range(value: i64) -> bool {
 /// Return true if both references point to the exact same object in memory.
 pub fn is_same_wallet<T>(wallet1: &T, wallet2: &T) -> bool {
     // TODO: Use std::ptr::eq to compare reference identity
-    // first of all what is T
     std::ptr::eq(wallet1, wallet2)
 }
 
@@ -124,18 +123,18 @@ use rand::Rng;
 pub fn generate_address(prefix: &str) -> String {
     // TODO: Build a random suffix of (32 - prefix.len()) chars from [a-z0-9]
     // TODO: Concatenate prefix + suffix and return
+    let chars = b"abcdefghijklmnopqrstuvwxyz0123456789";
     let suffix_len = 32 - prefix.len();
-    let chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+
     let mut rng = rand::thread_rng();
+    let mut address = String::from(prefix);
 
-    let suffix: String = (0..suffix_len)
-        .map(|_| {
-            let idx = rng.gen_range(0..chars.len());
-            chars.chars().nth(idx).unwrap()
-        })
-        .collect();
+    for _ in 0..suffix_len {
+        let idx = rng.gen_range(0..chars.len());
+        address.push(chars[idx] as char);
+    }
 
-    format!("{}{}", prefix, suffix)
+    address
 }
 
 /// Validate a Bitcoin block height. Returns (is_valid, message).
